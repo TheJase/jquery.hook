@@ -1,7 +1,7 @@
 /*!
 * jQuery.hook v1.0
 *
-* Copyright (c) 2009 Aaron Heckmann
+* Copyright (c) 2009 Aaron Heckmann, contributions (c) 2011 Jason Featheringham
 * Dual licensed under the MIT and GPL licenses:
 * http://www.opensource.org/licenses/mit-license.php
 * http://www.gnu.org/licenses/gpl.html
@@ -11,7 +11,9 @@
 * with onbeforeMETHOD, onMETHOD, and onafterMETHOD. 
 *
 * Pass in a string or array of method names you want 
-* to hook with onbefore, on, or onafter. 
+* to hook with onbefore, on, or onafter. If the handler
+* for onbefore or on returns false, all future events
+* are cancelled
 *
 * Example: 
 * 	jQuery.hook('show');
@@ -46,8 +48,8 @@
 			if ( old && !old.__hookold ) {
 				
 				$.fn[ method ] = function () {
-					this.triggerHandler('onbefore'+method);
-					this.triggerHandler('on'+method);
+					if ( this.triggerHandler('onbefore'+method) === false ) { return; }
+					if ( this.triggerHandler('on'+method) === false ) { return; }
 					var ret = old.apply(this, arguments);
 					this.triggerHandler('onafter'+method);
 					return ret;

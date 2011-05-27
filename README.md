@@ -9,8 +9,8 @@
 
 Just pass in a string or array of method names you want to hook and when you call the method, three additional events are fired. Here is the new execution flow:
 
-1. onbeforeMETHOD event fires
-2. onMETHOD event fires
+1. onbeforeMETHOD event fires. If the handler returned false, all further events are not fired.
+2. onMETHOD event fires. If the handler returned false, all further events are not fired.
 3. original METHOD fires
 4. onafterMETHOD event fires
  

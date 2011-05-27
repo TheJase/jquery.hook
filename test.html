@@ -15,6 +15,7 @@
 			})	
 			.bind('onaddClass', function (e) {
 				alert('onaddClass fired :' + ('onaddClass'=== e.type));
+				return false;
 			})	
 			.bind('onafteraddClass', function (e) {
 				alert('onafteraddClass fired : ' + ('onafteraddClass' === e.type)); //+ '\n' + $(this).is('.newclass'));
